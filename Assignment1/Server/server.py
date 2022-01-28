@@ -1,18 +1,20 @@
 r'''
 Date: 2022-01-27 15:29:49
 LastEditors: Kunyang Xie
-LastEditTime: 2022-01-28 13:33:52
-FilePath: \Assignment1\server.py
+LastEditTime: 2022-01-28 15:00:11
+FilePath: \Assignment1\Server\server.py
 '''
 import sys
 import re
 import random
+import os
 from socket import *
 
 
 class Server:
-    def __init__(self, req_code):
+    def __init__(self, req_code, file_to_send):
         self.req_code = req_code
+        self.file_to_send = file_to_send
 
     def negotiate(self):
         serverPort = 8080
@@ -52,12 +54,17 @@ class Server:
         serverSocket = socket(AF_INET, SOCK_STREAM)  # Generate TCP
         serverSocket.bind(('', r_port))
         serverSocket.listen(1)
-        while True:
-            connectionSocket, addr = serverSocket.accept()
-            sentence = connectionSocket.recv(1024).decode()
-            capitalizedSentence = sentence.upper()
-            connectionSocket.send(capitalizedSentence.encode())
-            connectionSocket.close()
+        if os.path.exists(self.file_to_send):
+            file = open(self.file_to_send)
+            while True:
+                connectionSocket, _ = serverSocket.accept()
+                connectionSocket.send(file.read().encode())
+                file.close()
+                connectionSocket.close()
+                print('Send successfully' + '\n')
+                break
+        else:
+            print('File "' + self.file_to_send + '" not found')
 
 
 def main():
@@ -66,7 +73,7 @@ def main():
     req_code = argv[1]
     file_to_send = argv[2]
 
-    server = Server(req_code=req_code)
+    server = Server(req_code=req_code, file_to_send=file_to_send)
     while True:
         r_port = server.negotiate()
         server.transaction(r_port=r_port)
@@ -75,4 +82,4 @@ def main():
 if __name__ == '__main__':
     main()
 
-# python server.py 11 bbb
+# python server.py 11 file_to_send.txt
