@@ -1,3 +1,7 @@
 *.pdf
 Assignment1 Scripts
 test.py
+TCPClient.py
+TCPServer.py
+UDPClient.py
+UDPServer.py

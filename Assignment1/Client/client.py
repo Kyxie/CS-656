@@ -1,7 +1,7 @@
 r'''
 Date: 2022-01-27 15:30:09
 LastEditors: Kunyang Xie
-LastEditTime: 2022-01-28 01:04:54
+LastEditTime: 2022-01-28 13:25:33
 FilePath: \Assignment1\client.py
 '''
 
@@ -20,23 +20,30 @@ class Client:
     def negotiate(self):
         serverName = self.server_address
         serverPort = int(self.n_port)
-        clientSocket = socket(AF_INET, SOCK_DGRAM)
+        clientSocket = socket(AF_INET, SOCK_DGRAM)  # Generate UDP
 
-        message = ''
+        message = ''    # String init
         if self.mode == 'PORT':
-            r_port = random.randint(8000, 8888)
-            print('init r_port = ' + str(r_port))
+            r_port = random.randint(8000, 8888)  # Generate r_port randomly
+            # Generate message (PORT + r_port + req_code)
             message = 'PORT' + str(r_port) + '/' + self.req_code
         elif self.mode == 'PASV':
-            message = 'PASV' + self.req_code
+            message = 'PASV' + '/' + self.req_code    # PASV + req_code
+        else:
+            print('Error: Undefined mode')
+            exit(0)
 
+        # Send message
         clientSocket.sendto(message.encode(), (serverName, serverPort))
+        # Receive, omit serverAddress
         acknowledgement, _ = clientSocket.recvfrom(2048)
+
+        # If receive 0
         if len(acknowledgement.decode()) == 1 and acknowledgement.decode()[0] == '0':
             print('req_code wrong')
         elif acknowledgement.decode()[0] == '1':
-            r_port = int(acknowledgement.decode()[1:])
-        print(r_port)
+            r_port = int(acknowledgement.decode()[1:])  # Success
+            print('Negotiation stage successful, r_port: ' + str(r_port))
         clientSocket.close()
 
     def transaction(self):
@@ -52,6 +59,7 @@ def main():
     mode = argv[3]
     req_code = argv[4]
     file_received = argv[5]
+    print(argv)
 
     # generate r_port
     r_port = random.randint(8000, 8888)
