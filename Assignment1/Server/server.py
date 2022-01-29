@@ -1,8 +1,8 @@
 r'''
 Date: 2022-01-27 15:29:49
 LastEditors: Kunyang Xie
-LastEditTime: 2022-01-28 15:00:11
-FilePath: \Assignment1\Server\server.py
+LastEditTime: 2022-01-29 16:10:16
+FilePath: \undefinedd:\Waterloo\term2\CS 656\Assignment\Assignment1\Server\server.py
 '''
 import sys
 import re
@@ -81,5 +81,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# python server.py 11 file_to_send.txt

@@ -1,8 +1,8 @@
 r'''
 Date: 2022-01-27 15:30:09
 LastEditors: Kunyang Xie
-LastEditTime: 2022-01-28 14:55:46
-FilePath: \Assignment1\Client\client.py
+LastEditTime: 2022-01-29 16:08:31
+FilePath: \undefinedd:\Waterloo\term2\CS 656\Assignment\Assignment1\Client\client.py
 '''
 
 import sys
@@ -79,5 +79,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# python client.py localhost 8080 PORT 11 file_received.txt

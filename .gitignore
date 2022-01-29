@@ -1,5 +1,4 @@
 *.pdf
-Assignment1 Scripts
 test.py
 Assignment1/TCPClient.py
 Assignment1/TCPServer.py
