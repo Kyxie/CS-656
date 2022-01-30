@@ -6,9 +6,9 @@
 
 ```shell
 # Linux or MacOS users
-python3 Server/server.py 11 file_to_send.txt
+python3 Server/server.py 11 Server/file_to_send.txt
 # Windows users
-python Server/server.py 11 file_to_send.txt
+python Server/server.py 11 Server/file_to_send.txt
 ```
 
 - The *req_code* is **11**, which can be replaced by any other numbers.
@@ -19,9 +19,9 @@ python Server/server.py 11 file_to_send.txt
 
 ```shell
 # Linux or MacOS users
-python3 Client/client.py localhost n_port PORT 11 file_received.txt
+python3 Client/client.py localhost n_port PORT 11 Server/file_received.txt
 # Windows users
-python Client/client.py localhost n_port PORT 11 file_received.txt
+python Client/client.py localhost n_port PORT 11 Server/file_received.txt
 ```
 
 - The *server_address* is **localhost**, which can be replaced by any other address.
