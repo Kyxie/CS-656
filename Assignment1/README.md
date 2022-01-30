@@ -5,10 +5,7 @@
 1. Firstly, open a terminal and run the server.
 
 ```shell
-# Linux or MacOS users
-python3 Server/server.py 11 Server/file_to_send.txt
-# Windows users
-python Server/server.py 11 Server/file_to_send.txt
+sh Server/server.sh 11 Server/file_to_send.txt
 ```
 
 - The *req_code* is **11**, which can be replaced by any other numbers.
@@ -19,9 +16,7 @@ python Server/server.py 11 Server/file_to_send.txt
 
 ```shell
 # Linux or MacOS users
-python3 Client/client.py localhost n_port PORT 11 Server/file_received.txt
-# Windows users
-python Client/client.py localhost n_port PORT 11 Server/file_received.txt
+sh Client/client.sh localhost n_port PORT 11 Server/file_received.txt
 ```
 
 - The *server_address* is **localhost**, which can be replaced by any other address.
