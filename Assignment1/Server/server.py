@@ -1,12 +1,11 @@
 r'''
 Date: 2022-01-27 15:29:49
 LastEditors: Kunyang Xie
-LastEditTime: 2022-01-29 16:10:16
-FilePath: \undefinedd:\Waterloo\term2\CS 656\Assignment\Assignment1\Server\server.py
+LastEditTime: 2022-01-29 21:22:22
+FilePath: \Assignment1\Server\server.py
 '''
 import sys
 import re
-import random
 import os
 from socket import *
 
@@ -17,10 +16,10 @@ class Server:
         self.file_to_send = file_to_send
 
     def negotiate(self):
-        serverPort = 8080
         serverSocket = socket(AF_INET, SOCK_DGRAM)  # Generate UDP
-        serverSocket.bind(('', serverPort))
-        print('The server is ready to receive')
+        serverSocket.bind(('', 0))
+        serverPort = serverSocket.getsockname()[1]
+        print('SERVER_PORT = ' + str(serverPort))
         while True:
             message, clientAddress = serverSocket.recvfrom(2048)
             # mode: first 4
@@ -35,13 +34,14 @@ class Server:
                     # r_port: 5 to dash
                     r_port = int(message.decode()[4:dash.span()[0]])
                 elif mode == 'PASV':
-                    r_port = random.randint(8000, 8888)
+                    r_port = self.getFreePort()
                 else:
                     print('Error: Undefined mode')
                     continue
                 acknowledgement = '1' + str(r_port)
                 serverSocket.sendto(acknowledgement.encode(), clientAddress)
                 print('Negotiation stage successful, r_port: ' + str(r_port))
+                serverSocket.close()
                 break
             else:
                 acknowledgement = '0'
@@ -65,6 +65,13 @@ class Server:
                 break
         else:
             print('File "' + self.file_to_send + '" not found')
+
+    def getFreePort(self):
+        testSock = socket(AF_INET, SOCK_STREAM)
+        testSock.bind(('', 0))
+        port = testSock.getsockname()[1]
+        testSock.close()
+        return port
 
 
 def main():

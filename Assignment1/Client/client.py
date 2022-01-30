@@ -1,12 +1,11 @@
 r'''
 Date: 2022-01-27 15:30:09
 LastEditors: Kunyang Xie
-LastEditTime: 2022-01-29 16:08:31
-FilePath: \undefinedd:\Waterloo\term2\CS 656\Assignment\Assignment1\Client\client.py
+LastEditTime: 2022-01-29 21:19:36
+FilePath: \Assignment1\Client\client.py
 '''
 
 import sys
-import random
 from socket import *
 
 
@@ -25,7 +24,7 @@ class Client:
 
         message = ''    # String init
         if self.mode == 'PORT':
-            r_port = random.randint(8000, 8888)  # Generate r_port randomly
+            r_port = self.getFreePort()  # Generate r_port
             # Generate message (PORT + r_port + req_code)
             message = 'PORT' + str(r_port) + '/' + self.req_code
         elif self.mode == 'PASV':
@@ -53,13 +52,19 @@ class Client:
         serverPort = r_port
         clientSocket = socket(AF_INET, SOCK_STREAM)
         clientSocket.connect((serverName, serverPort))
-        print('Ready to reveive')
         file = open(self.flie_received, 'w')
         reveive = clientSocket.recv(1024)
         file.write(reveive.decode())
         file.close()
         clientSocket.close()
         print('Reveive successfully')
+
+    def getFreePort(self):
+        testSock = socket(AF_INET, SOCK_STREAM)
+        testSock.bind(('', 0))
+        port = testSock.getsockname()[1]
+        testSock.close()
+        return port
 
 
 def main():
