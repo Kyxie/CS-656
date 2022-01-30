@@ -5,7 +5,9 @@
 1. Firstly, open a terminal and run the server.
 
 ```shell
-sh Server/server.sh 11 Server/file_to_send.txt
+# Open the terminal at the root path
+cd Server
+sh server.sh 11 file_to_send.txt
 ```
 
 - The *req_code* is **11**, which can be replaced by any other numbers.
@@ -15,8 +17,9 @@ sh Server/server.sh 11 Server/file_to_send.txt
 2. Then, do not close the terminal, and open a new terminal to run the client.
 
 ```shell
-# Linux or MacOS users
-sh Client/client.sh localhost n_port PORT 11 Server/file_received.txt
+# Open the terminal at the root path
+cd Client
+sh client.sh localhost n_port PORT 11 file_received.txt
 ```
 
 - The *server_address* is **localhost**, which can be replaced by any other address.
