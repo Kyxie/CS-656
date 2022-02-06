@@ -1,7 +1,7 @@
 r'''
 Date: 2022-01-27 15:30:09
 LastEditors: Kunyang Xie
-LastEditTime: 2022-01-29 23:35:17
+LastEditTime: 2022-02-06 11:53:41
 FilePath: \undefinedd:\Waterloo\term2\CS 656\Assignment\Assignment1\Client\client.py
 '''
 
@@ -43,6 +43,7 @@ class Client:
         # If receive 0
         if len(acknowledgement.decode()) == 1 and acknowledgement.decode()[0] == '0':
             print('req_code wrong')
+            exit(0)
         # If receive 1
         elif acknowledgement.decode()[0] == '1':
             r_port = int(acknowledgement.decode()[1:])  # Success
