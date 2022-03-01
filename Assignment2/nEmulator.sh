@@ -1,8 +1,8 @@
 ###
- # @Date: 2022-03-01 11:04:06
+ # @Date: 2022-03-01 16:00:06
  # @LastEditors: Kunyang Xie
- # @LastEditTime: 2022-03-01 11:06:24
- # @FilePath: \Assignment\Assignment2\nEmulator.sh
+ # @LastEditTime: 2022-03-01 16:03:51
+ # @FilePath: \Assignment\Assignment2\nEmulator\nEmulator.sh
 ###
 
 #Number of parameters: 9
@@ -17,4 +17,4 @@
 #    $8: <packet discard probability>
 #    $9: <verbose-mode>
 
-python3 nEmulator.py $1 $2 $3 $4 $5 $6 $7 $8 $9
+python3 network_emulator.py $1 $2 $3 $4 $5 $6 $7 $8 $9
