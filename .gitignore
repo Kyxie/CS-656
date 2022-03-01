@@ -1,8 +1,5 @@
 *.pdf
 test.py
-Assignment1/TCPClient.py
-Assignment1/TCPServer.py
-Assignment1/UDPClient.py
-Assignment1/UDPServer.py
-Assignment1/Client/*.txt
+Assignment1/zothers/
+Assignment2/zothers/
 cs456-a2-nemulartor/
