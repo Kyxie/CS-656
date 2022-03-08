@@ -1,14 +1,15 @@
 r'''
 Date: 2022-03-01 09:53:23
 LastEditors: Kunyang Xie
-LastEditTime: 2022-03-07 23:00:20
+LastEditTime: 2022-03-08 16:24:27
 FilePath: \Assignment\Assignment2\sender.py
 '''
 
-from struct import pack
 import sys
 from packet import Packet
 from socket import *
+import threading
+import time
 
 # Constants
 SACK = 0
@@ -18,7 +19,44 @@ MAX_WINDOW_SIZE = 10
 PACKET_CAP = 500
 
 # Global variables
-window = 1
+window_size = 1
+timer_list = []
+timeout = 100
+
+
+class Timer:
+    def __init__(self, tid):
+        self.tid = tid
+        self.time_start = time.time()
+
+    def is_timeout(self):
+        if time.time() - self.time_start >= timeout:
+            return True
+        else:
+            return False
+
+    def reset(self):
+        self.time_start = time.time()
+
+
+def check_window(window_size, timer_list_num):
+    if window_size > timer_list_num:
+        return True
+    else:
+        return False
+
+
+def send(packets, sender_socket, emu_addr, send_port):
+    global window_size
+    global timer_list
+
+    # Start a new thread for receive SACK
+    recv_thread = threading.Thread(target=recv)
+    recv_thread.start()
+
+
+def recv():
+    ...
 
 
 def file_to_packet(file_to_send):
@@ -47,19 +85,27 @@ def file_to_packet(file_to_send):
 
 
 def main():
-    # Obtain command
+    global timeout
+    # Obtain command inputs
     argv = sys.argv
     if len(argv) != 6:
         print('Error: Please enter the correct number of inputs!')
         exit(1)
 
-    host_address = argv[1]
+    emu_addr = argv[1]
     send_port = argv[2]
-    receive_port = argv[3]
+    recv_port = argv[3]
     timeout = argv[4]
     file_to_send = argv[5]
 
+    # Read file to packets
     packets = file_to_packet(file_to_send)
+
+    # Generate a new UDP socket
+    sender_socket = socket(AF_INET, SOCK_DGRAM)
+    sender_socket.bind(('', recv_port))
+
+    send()
 
 
 if __name__ == '__main__':
