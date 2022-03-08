@@ -134,7 +134,7 @@ if __name__ == '__main__':
     parser.add_argument("<Forward receiving port>",
                         help="emulator's receiving UDP port number in the forward (sender) direction")
     parser.add_argument("<Receiver's network address>")
-    parser.add_argument("<Reciever’s receiving UDP port number>")
+    parser.add_argument("<Reciever's receiving UDP port number>")
     parser.add_argument("<Backward receiving port>",
                         help="emulator's receiving UDP port number in the backward (receiver) direction")
     parser.add_argument("<Sender's network address>")
