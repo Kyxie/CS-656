@@ -151,7 +151,7 @@ if __name__ == '__main__':
     forward_recv_port = int(args["<Forward receiving port>"])
     backward_recv_port = int(args["<Backward receiving port>"])
     receiver_addr = str(args["<Receiver's network address>"])
-    receiver_recv_port = int(args["<Reciever’s receiving UDP port number>"])
+    receiver_recv_port = int(args["<Reciever's receiving UDP port number>"])
     sender_addr = str(args["<Sender's network address>"])
     sender_recv_port = int(args["<Sender's receiving UDP port number>"])
     prob_discard = float(args["<drop probability>"])
