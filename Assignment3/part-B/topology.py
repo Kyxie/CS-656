@@ -29,15 +29,15 @@ class CSLRTopo( Topo ):
                 r2 = self.addSwitch( 'r2', listenPort=6639 )
 
                 # Add links between hosts and switches
-                self.addLink( s1, Alice )
-                self.addLink( s2, Bob )
-                self.addLink( s3, Carol )
+                self.addLink( Alice, s1 )
+                self.addLink( Bob, s2 )
+                self.addLink( Carol, s3 )
 
                 # Add links between switches
                 self.addLink( s1, r1, bw=100 )
                 self.addLink( r1, s2, bw=100 )
                 self.addLink( s2, r2, bw=100 )
-                self.addLink( s2, s3, bw=100 )
+                self.addLink( r2, s3, bw=100 )
 
 def run():
         "Create and configure network"
@@ -60,24 +60,25 @@ def run():
         # Set interface MAC address for switches (NOTE: IP
         # addresses are not assigned to switch interfaces)
         s1 = net.get( 's1' )
-        s1.intf( 's1-eth1' ).setMAC( '0A:00:01:01:00:01' )
-        s1.intf( 's1-eth2' ).setMAC( '0A:00:0A:FE:00:02' )
+        s1.intf( 's1-eth1' ).setMAC( '0A:00:00:00:01:01' )
+        s1.intf( 's1-eth2' ).setMAC( '0A:00:00:00:01:02' )
 
         s2 = net.get( 's2' )
-        s2.intf( 's2-eth1' ).setMAC( '0A:00:02:01:00:01' )
-        s2.intf( 's2-eth2' ).setMAC( '0A:00:0B:FE:00:02' )
+        s2.intf( 's2-eth1' ).setMAC( '0A:00:00:00:02:01' )
+        s2.intf( 's2-eth2' ).setMAC( '0A:00:00:00:02:02' )
+        s2.intf( 's2-eth3' ).setMAC( '0A:00:00:00:02:03' )
 
         s3 = net.get( 's3' )
-        s3.intf( 's3-eth1' ).setMAC( '0A:00:03:01:00:01' )
-        s3.intf( 's3-eth2' ).setMAC( '0A:00:0D:FE:00:02' )
+        s3.intf( 's3-eth1' ).setMAC( '0A:00:00:00:03:01' )
+        s3.intf( 's3-eth2' ).setMAC( '0A:00:00:00:03:02' )
 
         r1 = net.get( 'r1' )
-        r1.intf( 'r1-eth1' ).setMAC( '0A:00:01:01:00:01' )
-        r1.intf( 'r1-eth2' ).setMAC( '0A:00:0A:FE:00:02' )
+        r1.intf( 'r1-eth1' ).setMAC( '0A:00:00:01:01:01' )
+        r1.intf( 'r1-eth2' ).setMAC( '0A:00:00:01:01:02' )
 
         r2 = net.get( 'r2' )
-        r2.intf( 'r2-eth1' ).setMAC( '0A:00:01:01:00:01' )
-        r2.intf( 'r2-eth2' ).setMAC( '0A:00:0A:FE:00:02' )
+        r2.intf( 'r2-eth1' ).setMAC( '0A:00:00:01:02:01' )
+        r2.intf( 'r2-eth2' ).setMAC( '0A:00:00:01:02:02' )
 
         net.start()
 
@@ -88,9 +89,9 @@ def run():
         Carol.cmd( 'route add default gw 10.6.6.46 dev Carol-eth0' )
 
         # Add arp cache entries for hosts
-        Alice.cmd( 'arp -s 10.0.0.1 0A:00:00:01:00:01 -i Alice-eth0' )
-        Bob.cmd( 'arp -s 10.0.1.1 0A:00:01:01:00:01 -i Bob-eth0' )
-        Carol.cmd( 'arp -s 10.0.2.1 0A:00:02:01:00:01 -i Carol-eth0' )
+        Alice.cmd( 'arp -s 10.1.1.18 0A:00:00:00:01:01 -i Alice-eth0' )
+        Bob.cmd( 'arp -s 10.4.4.49 0A:00:00:00:02:02 -i Bob-eth0' )
+        Carol.cmd( 'arp -s 10.6.6.70 0A:00:00:00:03:02 -i Carol-eth0' )
 
         # Open Mininet Command Line Interface
         CLI(net)
