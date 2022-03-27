@@ -89,9 +89,9 @@ def run():
         Carol.cmd( 'route add default gw 10.6.6.46 dev Carol-eth0' )
 
         # Add arp cache entries for hosts
-        Alice.cmd( 'arp -s 10.1.1.18 0A:00:00:00:01:01 -i Alice-eth0' )
-        Bob.cmd( 'arp -s 10.4.4.49 0A:00:00:00:02:02 -i Bob-eth0' )
-        Carol.cmd( 'arp -s 10.6.6.70 0A:00:00:00:03:02 -i Carol-eth0' )
+        Alice.cmd( 'arp -s 10.1.1.14 0A:00:00:00:01:01 -i Alice-eth0' )
+        Bob.cmd( 'arp -s 10.4.4.14 0A:00:00:00:02:02 -i Bob-eth0' )
+        Carol.cmd( 'arp -s 10.6.6.46 0A:00:00:00:03:02 -i Carol-eth0' )
 
         # Open Mininet Command Line Interface
         CLI(net)
