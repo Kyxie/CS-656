@@ -2,16 +2,12 @@
 
 # Sets bridge s1 to use OpenFlow 1.3
 ovs-vsctl set bridge s1 protocols=OpenFlow13
-
 # Sets bridge s2 to use OpenFlow 1.3
 ovs-vsctl set bridge s2 protocols=OpenFlow13
-
 # Sets bridge s3 to use OpenFlow 1.3
 ovs-vsctl set bridge s3 protocols=OpenFlow13
-
 # Sets bridge r1 to use OpenFlow 1.3
 ovs-vsctl set bridge r1 protocols=OpenFlow13
-
 # Sets bridge r2 to use OpenFlow 1.3
 ovs-vsctl set bridge r2 protocols=OpenFlow13
 
@@ -27,23 +23,25 @@ ofctl='ovs-ofctl -O OpenFlow13'
 
 # OVS rules for switch 1
 $ofctl add-flow s1 \
-    in_port=1,actions=output:2
+    in_port=1,actions=mod_dl_src:0A:00:00:00:01:02,mod_dl_dst:0A:00:00:01:01:01,output=2
 $ofctl add-flow s1 \
     in_port=2,actions=mod_dl_src:0A:00:00:00:01:01,mod_dl_dst:AA:AA:AA:AA:AA:AA,output=1
 
 # OVS rules for switch 2
 $ofctl add-flow s2 \
-    in_port=1,actions=output:2
+    in_port=1,actions=mod_dl_src:0A:00:00:00:02:02,mod_dl_dst:B0:B0:B0:B0:B0:B0,output=2
 $ofctl add-flow s2 \
-    in_port=2,actions=output:1,3
+    in_port=2,actions=mod_dl_src:0A:00:00:00:02:01,mod_dl_dst:0A:00:00:01:01:02,output=1
 $ofctl add-flow s2 \
-    in_port=3,actions=output:2
+    in_port=2,actions=mod_dl_src:0A:00:00:00:02:03,mod_dl_dst:0A:00:00:01:02:01,output=3
+$ofctl add-flow s2 \
+    in_port=3,actions=mod_dl_src:0A:00:00:00:02:02,mod_dl_dst:B0:B0:B0:B0:B0:B0,output=2
 
 # OVS rules for switch 3
 $ofctl add-flow s3 \
-    in_port=1,actions=output:2
+    in_port=1,actions=mod_dl_src:0A:00:00:00:03:02,mod_dl_dst:CC:CC:CC:CC:CC:CC,output=2
 $ofctl add-flow s3 \
-    in_port=2,actions=output:1
+    in_port=2,actions=mod_dl_src:0A:00:00:00:03:01,mod_dl_dst:0A:00:00:01:02:02,output=1
 
 # OVS rules for router 1
 $ofctl add-flow r1 \
