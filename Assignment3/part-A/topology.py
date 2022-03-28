@@ -184,7 +184,7 @@ def run():
         h8.cmd( 'route add default gw 10.0.8.1 dev h8-eth0' )
         h9.cmd( 'route add default gw 10.0.9.1 dev h9-eth0' )
 
-        # Add arp cache entries for hosts
+        Add arp cache entries for hosts
         h0.cmd( 'arp -s 10.0.0.1 0A:00:00:01:00:01 -i h0-eth0' )
         h1.cmd( 'arp -s 10.0.1.1 0A:00:01:01:00:01 -i h1-eth0' )
         h2.cmd( 'arp -s 10.0.2.1 0A:00:02:01:00:01 -i h2-eth0' )
