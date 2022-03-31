@@ -29,31 +29,29 @@ $ofctl add-flow s1 \
 
 # OVS rules for switch 2
 $ofctl add-flow s2 \
-    in_port=1,actions=mod_dl_src:0A:00:00:00:02:02,mod_dl_dst:B0:B0:B0:B0:B0:B0,output=2
+    in_port=1,actions=output:2,3
 $ofctl add-flow s2 \
-    in_port=2,actions=mod_dl_src:0A:00:00:00:02:01,mod_dl_dst:0A:00:00:01:01:02,output=1
+    in_port=2,actions=mod_dl_src:0A:00:00:00:02:02,mod_dl_dst:B0:B0:B0:B0:B0:B0,output=1
 $ofctl add-flow s2 \
-    in_port=2,actions=mod_dl_src:0A:00:00:00:02:03,mod_dl_dst:0A:00:00:01:02:01,output=3
-$ofctl add-flow s2 \
-    in_port=3,actions=mod_dl_src:0A:00:00:00:02:02,mod_dl_dst:B0:B0:B0:B0:B0:B0,output=2
+    in_port=3,actions=mod_dl_src:0A:00:00:00:02:02,mod_dl_dst:B0:B0:B0:B0:B0:B0,output=1
 
 # OVS rules for switch 3
 $ofctl add-flow s3 \
-    in_port=1,actions=mod_dl_src:0A:00:00:00:03:02,mod_dl_dst:CC:CC:CC:CC:CC:CC,output=2
+    in_port=1,actions=mod_dl_src:0A:00:00:00:03:01,mod_dl_dst:0A:00:00:00:02:02,output=2
 $ofctl add-flow s3 \
-    in_port=2,actions=mod_dl_src:0A:00:00:00:03:01,mod_dl_dst:0A:00:00:01:02:02,output=1
+    in_port=2,actions=mod_dl_src:0A:00:00:00:03:02,mod_dl_dst:CC:CC:CC:CC:CC:CC,output=1
 
 # OVS rules for router 1
 $ofctl add-flow r1 \
-    in_port=1,ip,nw_src=10.1.1.17,nw_dst=10.4.4.48,actions=mod_dl_src:0A:00:00:01:01:02,mod_dl_dst:0A:00:00:00:02:01,output=2
+    in_port=1,ip,nw_src=10.1.1.17,nw_dst=10.4.4.48,actions=output:2
 $ofctl add-flow r1 \
-    in_port=2,ip,nw_src=10.4.4.48,nw_dst=10.1.1.17,actions=mod_dl_src:0A:00:00:01:01:01,mod_dl_dst:0A:00:00:00:01:02,output=1
+    in_port=2,ip,nw_src=10.4.4.48,nw_dst=10.1.1.17,actions=output:1
 
 # OVS rules for router 2
 $ofctl add-flow r2 \
-    in_port=1,ip,nw_src=10.4.4.48,nw_dst=10.6.6.69,actions=mod_dl_src:0A:00:00:01:02:02,mod_dl_dst:0A:00:00:00:03:01,output=2
+    in_port=1,ip,nw_src=10.4.4.48,nw_dst=10.6.6.69,actions=output:2
 $ofctl add-flow r2 \
-    in_port=2,ip,nw_src=10.6.6.69,nw_dst=10.4.4.48,actions=mod_dl_src:0A:00:00:01:02:01,mod_dl_dst:0A:00:00:00:02:03,output=1
+    in_port=2,ip,nw_src=10.6.6.69,nw_dst=10.4.4.48,actions=output:1
 
 # Print the flows installed in each switch
 for switch in s1 s2 s3 r1 r2;
